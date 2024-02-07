@@ -14,7 +14,12 @@ export const Logo = () => {
     <Link href={"/"}>
       <div className="hover:opacity-75 transition hidden md:flex items-center justify-center gap-x-2">
         <FaVolleyballBall size={24} />
-        <p className={cn("text-lg text-neutral-700", headingFont.className)}>
+        <p
+          className={cn(
+            "text-lg text-neutral-700 items-center justify-center",
+            headingFont.className
+          )}
+        >
           Court Booking
         </p>
       </div>
