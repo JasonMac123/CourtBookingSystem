@@ -10,3 +10,24 @@ datasource db {
   url      = env("DATABASE_URL")
   relationMode = "prisma"
 }
+
+model Court {
+  id String @id @default(uuid())
+  title String
+  imageId String
+  description String
+  address String
+
+  reservations Reservation[]
+}
+
+model Reservation {
+  id String @id @default(uuid())
+  startTime Float
+  endTime Float
+  courtId String
+  court Court @relation(fields: [courtId], references: [id], onDelete: Cascade)
+
+
+  @@index([courtId])
+}
