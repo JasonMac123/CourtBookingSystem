@@ -1,4 +1,5 @@
 import { db } from "@/prisma";
+import Link from "next/link";
 
 export const CourtList = async () => {
   const courts = await db.court.findMany();
@@ -6,7 +7,9 @@ export const CourtList = async () => {
   return (
     <div>
       {courts.map((court) => (
-        <div key={court.id}>{court.title}</div>
+        <Link href={`/court/${court.id}`} key={court.id}>
+          <div>{court.title}</div>
+        </Link>
       ))}
     </div>
   );
