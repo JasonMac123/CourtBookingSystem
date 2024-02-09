@@ -17,6 +17,7 @@ model Court {
   imageId String
   description String
   address String
+  region String
 
   reservations Reservation[]
 }
