@@ -1,3 +1,9 @@
+import { CourtList } from "@/components/courtList";
+
 export default function Home() {
-  return <main></main>;
+  return (
+    <main>
+      <CourtList />
+    </main>
+  );
 }
