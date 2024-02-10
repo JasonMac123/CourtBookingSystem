@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import { DropDown } from "./layout/dropDown";
+import { Button } from "./ui/button";
 
 export const courtLocations = [
   "Missisuaga",
@@ -23,6 +24,11 @@ export const Filter = () => {
   const [location, setLocation] = useState("");
   const [sport, setSport] = useState("");
 
+  const clearFilters = () => {
+    setLocation("");
+    setSport("");
+  };
+
   return (
     <div className="flex flex-row items-center justify-center w-full space-x-4">
       <DropDown
@@ -39,6 +45,7 @@ export const Filter = () => {
         setValue={setSport}
         options={sportList}
       />
+      <Button onClick={() => clearFilters()}>Clear</Button>
     </div>
   );
 };
