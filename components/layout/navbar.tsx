@@ -7,7 +7,7 @@ const Navbar = () => {
     <nav className="fixed top-0 w-full h-14 border-b shadow-sm flex items-center">
       <div className="flex flex-row w-full justify-between items-center bg-slate-700 py-4 px-8">
         <Logo />
-        <div className="none md:block text-3xl text-center text-white mr-20">
+        <div className="hidden lg:block text-3xl text-center text-white mr-20">
           Book a court today!
         </div>
         <div className="mr-4">

@@ -12,11 +12,11 @@ const headingFont = localFont({
 export const Logo = () => {
   return (
     <Link href={"/"}>
-      <div className="hover:opacity-75 transition hidden md:flex items-center justify-center gap-x-2">
+      <div className="hover:opacity-75 transition flex items-center justify-center gap-x-2">
         <FaVolleyballBall size={24} color="white" />
         <p
           className={cn(
-            "text-lg items-center justify-center text-white",
+            "text-2xl items-center justify-center text-white",
             headingFont.className
           )}
         >
