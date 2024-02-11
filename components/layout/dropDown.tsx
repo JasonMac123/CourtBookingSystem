@@ -29,12 +29,18 @@ export const DropDown = ({
       <DropdownMenuTrigger asChild>
         <Button>{name}</Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-40">
-        <DropdownMenuLabel>{description}</DropdownMenuLabel>
+      <DropdownMenuContent className="w-60 bg-slate-700">
+        <DropdownMenuLabel className="text-white">
+          {description}
+        </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuRadioGroup value={value} onValueChange={setValue}>
           {options.map((option) => (
-            <DropdownMenuRadioItem value={option} key={option}>
+            <DropdownMenuRadioItem
+              value={option}
+              key={option}
+              className="text-white hover:cursor-pointer hover:bg-slate-500 transition-all"
+            >
               {option}
             </DropdownMenuRadioItem>
           ))}
