@@ -5,7 +5,7 @@ import { Filter } from "@/components/filter";
 
 export default function Home() {
   return (
-    <main>
+    <main className="mt-20">
       <Filter />
       <Suspense fallback={<CourtList.skeleton />}>
         <CourtList />
