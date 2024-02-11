@@ -1,3 +1,5 @@
+import { FaArrowDown } from "react-icons/fa";
+
 import { Button } from "../ui/button";
 import {
   DropdownMenu,
@@ -27,9 +29,11 @@ export const DropDown = ({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button>{name}</Button>
+        <Button className="gap-4 hover:bg-slate-700 hover:bg-opacity-80 transition-all">
+          {name} <FaArrowDown />
+        </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-60 bg-slate-700">
+      <DropdownMenuContent className="w-60 bg-slate-800">
         <DropdownMenuLabel className="text-white">
           {description}
         </DropdownMenuLabel>

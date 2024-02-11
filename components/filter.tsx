@@ -34,20 +34,25 @@ export const Filter = () => {
   return (
     <div className="flex flex-row items-center justify-center w-full space-x-4">
       <DropDown
-        name="location"
+        name="Location"
         description="Filter for a location in this area"
         value={location}
         setValue={setLocation}
         options={courtLocations}
       />
       <DropDown
-        name="sports"
+        name="Sports"
         description="Filter for a court that supports this sport"
         value={sport}
         setValue={setSport}
         options={sportList}
       />
-      <Button onClick={() => clearFilters()}>Clear</Button>
+      <Button
+        onClick={() => clearFilters()}
+        className="hover:bg-slate-700 hover:bg-opacity-70 hover:cusor-pointer transition-all"
+      >
+        Clear
+      </Button>
     </div>
   );
 };
