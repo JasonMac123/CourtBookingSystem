@@ -34,7 +34,7 @@ export const DropDown = ({
         <DropdownMenuSeparator />
         <DropdownMenuRadioGroup value={value} onValueChange={setValue}>
           {options.map((option) => (
-            <DropdownMenuRadioItem value={option}>
+            <DropdownMenuRadioItem value={option} key={option}>
               {option}
             </DropdownMenuRadioItem>
           ))}
