@@ -16,7 +16,7 @@ export const Logo = () => {
         <FaVolleyballBall size={24} color="white" />
         <p
           className={cn(
-            "text-lg text-neutral-700 items-center justify-center text-white",
+            "text-lg items-center justify-center text-white",
             headingFont.className
           )}
         >
