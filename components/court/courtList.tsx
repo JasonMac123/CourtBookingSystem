@@ -49,7 +49,7 @@ export const CourtList = ({ data }: CourtListProps) => {
   }
 
   return (
-    <div>
+    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 mx-12 gap-8 mt-8">
       {courtData.map((court) => (
         <CourtCard data={court} key={court.id} />
       ))}
