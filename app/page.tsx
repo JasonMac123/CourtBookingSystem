@@ -5,22 +5,19 @@ import { db } from "@/prisma";
 
 import { CourtList } from "@/components/courtList";
 import { Filter } from "@/components/filter";
+import CourtListSkeleton from "@/components/courtListSkeleton";
 
 const Home = async () => {
-  const { isPending, error, data } = useQuery({
-    queryKey: ["courts"],
-    queryFn: async () =>
-      await db.court.findMany({
-        include: {
-          sports: true,
-        },
-      }),
+  const data = await db.court.findMany({
+    include: {
+      sports: true,
+    },
   });
 
   return (
     <main className="mt-20">
       <Filter />
-      <Suspense fallback={<CourtList.skeleton />}>
+      <Suspense fallback={<CourtListSkeleton />}>
         <CourtList data={data} />
       </Suspense>
     </main>
