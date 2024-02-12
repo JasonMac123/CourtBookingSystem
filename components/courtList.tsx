@@ -1,19 +1,34 @@
 import Link from "next/link";
 
+import { CourtWithSports } from "@/types";
+
+import { useFilters } from "@/hooks/useFilters";
+
 import { Skeleton } from "./ui/skeleton";
-import { Court } from "@prisma/client";
 
 interface CourtListProps {
-  data: Court[] | undefined;
+  data: CourtWithSports[] | undefined;
 }
 
 export const CourtList = ({ data }: CourtListProps) => {
+  const { sport, location } = useFilters();
+
   if (!data) {
     return (
       <div className="flex items-center justify-center">
         <p>Sorry could not find any courts</p>
       </div>
     );
+  }
+
+  if (sport) {
+    data = data.filter((court) =>
+      court.sports.some((item) => item.title === sport)
+    );
+  }
+
+  if (location) {
+    data = data.filter((court) => court.region === location);
   }
 
   return (

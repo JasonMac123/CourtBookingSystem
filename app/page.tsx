@@ -9,7 +9,12 @@ import { Filter } from "@/components/filter";
 const Home = async () => {
   const { isPending, error, data } = useQuery({
     queryKey: ["courts"],
-    queryFn: async () => await db.court.findMany(),
+    queryFn: async () =>
+      await db.court.findMany({
+        include: {
+          sports: true,
+        },
+      }),
   });
 
   return (
