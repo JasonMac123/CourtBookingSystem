@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useMemo } from "react";
 
 import { CourtWithSports } from "@/types";
 
@@ -13,7 +14,34 @@ interface CourtListProps {
 export const CourtList = ({ data }: CourtListProps) => {
   const { sport, location } = useFilters();
 
-  if (!data) {
+  const courtData = useMemo(
+    () => filterData(sport, location, data),
+    [sport, location, data]
+  );
+
+  const filterData = (
+    sport: string,
+    location: string,
+    data: CourtWithSports[] | undefined
+  ) => {
+    if (!data) {
+      return undefined;
+    }
+
+    if (sport) {
+      data = data.filter((court) =>
+        court.sports.some((item) => item.title === sport)
+      );
+    }
+
+    if (location) {
+      data = data.filter((court) => court.region === location);
+    }
+
+    return data;
+  };
+
+  if (!courtData) {
     return (
       <div className="flex items-center justify-center">
         <p>Sorry could not find any courts</p>
@@ -21,19 +49,9 @@ export const CourtList = ({ data }: CourtListProps) => {
     );
   }
 
-  if (sport) {
-    data = data.filter((court) =>
-      court.sports.some((item) => item.title === sport)
-    );
-  }
-
-  if (location) {
-    data = data.filter((court) => court.region === location);
-  }
-
   return (
     <div>
-      {data.map((court) => (
+      {courtData.map((court) => (
         <Link href={`/court/${court.id}`} key={court.id}>
           <div>{court.title}</div>
         </Link>
