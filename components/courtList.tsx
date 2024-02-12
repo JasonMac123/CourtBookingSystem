@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { useMemo } from "react";
 
@@ -13,11 +15,6 @@ interface CourtListProps {
 
 export const CourtList = ({ data }: CourtListProps) => {
   const { sport, location } = useFilters();
-
-  const courtData = useMemo(
-    () => filterData(sport, location, data),
-    [sport, location, data]
-  );
 
   const filterData = (
     sport: string,
@@ -41,6 +38,11 @@ export const CourtList = ({ data }: CourtListProps) => {
     return data;
   };
 
+  const courtData = useMemo(
+    () => filterData(sport, location, data),
+    [sport, location, data]
+  );
+
   if (!courtData) {
     return (
       <div className="flex items-center justify-center">
@@ -56,21 +58,6 @@ export const CourtList = ({ data }: CourtListProps) => {
           <div>{court.title}</div>
         </Link>
       ))}
-    </div>
-  );
-};
-
-CourtList.skeleton = function SkeletonBoardList() {
-  return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-      <Skeleton className="w-full h-80" />
-      <Skeleton className="w-full h-80" />
-      <Skeleton className="w-full h-80" />
-      <Skeleton className="w-full h-80" />
-      <Skeleton className="w-full h-80" />
-      <Skeleton className="w-full h-80" />
-      <Skeleton className="w-full h-80" />
-      <Skeleton className="w-full h-80" />
     </div>
   );
 };
