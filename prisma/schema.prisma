@@ -19,7 +19,15 @@ model Court {
   address String
   region String
 
+  sports Sport[]
   reservations Reservation[]
+}
+
+model Sport {
+  id String @id @default(uuid())
+  title String
+
+  courts Court[]
 }
 
 model Reservation {
