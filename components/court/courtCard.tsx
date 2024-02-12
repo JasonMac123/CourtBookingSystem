@@ -11,19 +11,26 @@ interface CourtCardProps {
 
 export const CourtCard = ({ data }: CourtCardProps) => {
   return (
-    <Link href={`/court/${data.id}`}>
-      <div>
-        <div>
-          <Image
-            src={data.imageId}
-            alt="picture of court"
-            fill
-            className="object-cover h-full w-full"
-          />
-        </div>
-        <div className="flex flex-col">
-          <h2>{data.title}</h2>
-        </div>
+    <Link
+      href={`/court/${data.id}`}
+      className="flex w-full bg-neutral-300 h-64"
+    >
+      <div className="w-1/2 h-full relative">
+        <Image
+          src={data.imageId}
+          alt="picture of court"
+          fill
+          className="object-fit"
+        />
+      </div>
+      <div className="flex flex-col">
+        <h2>{data.title}</h2>
+        <h4>
+          Sports Allowed : {data.sports.map((item) => item.title).toString()}
+        </h4>
+        <h4>
+          {data.address}, {data.region}
+        </h4>
       </div>
     </Link>
   );
