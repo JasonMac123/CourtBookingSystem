@@ -4,10 +4,18 @@ import { Skeleton } from "./ui/skeleton";
 import { Court } from "@prisma/client";
 
 interface CourtListProps {
-  data: Court[];
+  data: Court[] | undefined;
 }
 
 export const CourtList = ({ data }: CourtListProps) => {
+  if (!data) {
+    return (
+      <div className="flex items-center justify-center">
+        <p>Sorry could not find any courts</p>
+      </div>
+    );
+  }
+
   return (
     <div>
       {data.map((court) => (
