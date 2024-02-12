@@ -1,9 +1,8 @@
 "use client";
 
-import { useState } from "react";
-
 import { DropDown } from "./layout/dropDown";
 import { Button } from "./ui/button";
+import { useFilters } from "@/hooks/useFilters";
 
 export const courtLocations = [
   "Missisuaga",
@@ -23,13 +22,7 @@ export const sportList = [
 ];
 
 export const Filter = () => {
-  const [location, setLocation] = useState("");
-  const [sport, setSport] = useState("");
-
-  const clearFilters = () => {
-    setLocation("");
-    setSport("");
-  };
+  const { sport, location, setLocation, setSport, clearFilters } = useFilters();
 
   return (
     <div className="flex flex-row items-center justify-center w-full space-x-4">
