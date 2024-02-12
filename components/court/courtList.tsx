@@ -1,13 +1,10 @@
 "use client";
-
-import Link from "next/link";
 import { useMemo } from "react";
 
 import { CourtWithSports } from "@/types";
 
 import { useFilters } from "@/hooks/useFilters";
-
-import { Skeleton } from "./ui/skeleton";
+import { CourtCard } from "./courtCard";
 
 interface CourtListProps {
   data: CourtWithSports[] | undefined;
@@ -54,9 +51,7 @@ export const CourtList = ({ data }: CourtListProps) => {
   return (
     <div>
       {courtData.map((court) => (
-        <Link href={`/court/${court.id}`} key={court.id}>
-          <div>{court.title}</div>
-        </Link>
+        <CourtCard data={court} key={court.id} />
       ))}
     </div>
   );

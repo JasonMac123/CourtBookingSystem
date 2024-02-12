@@ -1,11 +1,10 @@
 import { Suspense } from "react";
-import { useQuery } from "@tanstack/react-query";
 
 import { db } from "@/prisma";
 
-import { CourtList } from "@/components/courtList";
+import { CourtList } from "@/components/court/courtList";
 import { Filter } from "@/components/filter";
-import CourtListSkeleton from "@/components/courtListSkeleton";
+import { CourtListSkeleton } from "@/components/court/courtListSkeleton";
 
 const Home = async () => {
   const data = await db.court.findMany({
