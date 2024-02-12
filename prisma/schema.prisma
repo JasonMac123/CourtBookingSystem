@@ -15,7 +15,7 @@ model Court {
   id String @id @default(uuid())
   title String
   imageId String
-  description String
+  description String @db.Text
   address String
   region String
 
