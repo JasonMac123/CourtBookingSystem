@@ -1,13 +1,16 @@
-import { db } from "@/prisma";
 import Link from "next/link";
+
 import { Skeleton } from "./ui/skeleton";
+import { Court } from "@prisma/client";
 
-export const CourtList = async () => {
-  const courts = await db.court.findMany();
+interface CourtListProps {
+  data: Court[];
+}
 
+export const CourtList = ({ data }: CourtListProps) => {
   return (
     <div>
-      {courts.map((court) => (
+      {data.map((court) => (
         <Link href={`/court/${court.id}`} key={court.id}>
           <div>{court.title}</div>
         </Link>

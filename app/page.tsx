@@ -2,14 +2,19 @@ import { Suspense } from "react";
 
 import { CourtList } from "@/components/courtList";
 import { Filter } from "@/components/filter";
+import { db } from "@/prisma";
 
-export default function Home() {
+const Home = async () => {
+  const courts = await db.court.findMany({});
+
   return (
     <main className="mt-20">
       <Filter />
       <Suspense fallback={<CourtList.skeleton />}>
-        <CourtList />
+        <CourtList data={courts} />
       </Suspense>
     </main>
   );
-}
+};
+
+export default Home;
