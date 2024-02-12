@@ -1,17 +1,17 @@
 import { create } from "zustand";
 
 interface FilterStore {
-  location: string | undefined;
-  sport: string | undefined;
+  location: string;
+  sport: string;
   setLocation: (location: string) => void;
   setSport: (sport: string) => void;
   clearFilters: () => void;
 }
 
 export const useFilters = create<FilterStore>((set) => ({
-  location: undefined,
-  sport: undefined,
+  location: "",
+  sport: "",
   setLocation: (location: string) => set({ location }),
   setSport: (sport: string) => set({ sport }),
-  clearFilters: () => set({ location: undefined, sport: undefined }),
+  clearFilters: () => set({ location: "", sport: "" }),
 }));
