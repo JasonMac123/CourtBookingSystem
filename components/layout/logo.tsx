@@ -13,7 +13,7 @@ export const Logo = () => {
   return (
     <Link href={"/"}>
       <div className="hover:opacity-75 transition flex items-center justify-center gap-x-2">
-        <FaVolleyballBall size={24} color="white" />
+        <FaVolleyballBall size={40} color="white" />
         <p
           className={cn(
             "text-2xl items-center justify-center text-white",

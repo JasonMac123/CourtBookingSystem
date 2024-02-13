@@ -4,7 +4,7 @@ import { Logo } from "./logo";
 
 const Navbar = () => {
   return (
-    <nav className="fixed top-0 w-full h-14 border-b shadow-sm flex items-center">
+    <nav className="fixed top-0 w-full shadow-sm flex items-center">
       <div className="flex flex-row w-full justify-between items-center bg-slate-700 py-4 px-8">
         <Logo />
         <div className="hidden lg:block text-3xl text-center text-white mr-20">
@@ -15,7 +15,9 @@ const Navbar = () => {
             <UserButton />
           </SignedIn>
           <SignedOut>
-            <SignInButton />
+            <div className="flex items-center justify-center px-4 py-2 bg-white rounded-lg">
+              <SignInButton />
+            </div>
           </SignedOut>
         </div>
       </div>
