@@ -10,6 +10,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
+import { cn } from "@/lib/utils";
 
 interface DropDownProps {
   name: string;
@@ -29,8 +30,13 @@ export const DropDown = ({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button className="gap-4 hover:bg-slate-700 hover:bg-opacity-80 transition-all">
-          {name} <FaArrowDown />
+        <Button
+          className={cn(
+            `gap-4 hover:bg-slate-700 hover:bg-opacity-80 transition-all`,
+            value && "bg-slate-700 hover:bg-slate-800 hover:bg-opacity-100"
+          )}
+        >
+          {value ? value : name} <FaArrowDown />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-60 bg-slate-800">
