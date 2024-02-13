@@ -16,6 +16,7 @@ model Court {
   title String
   imageId String
   description String @db.Text
+  price Int
   address String
   region String
 
