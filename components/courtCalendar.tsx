@@ -33,7 +33,9 @@ export const CourtCalendar = () => {
   );
 
   const handleSelectEvent = useCallback(
-    (reservation: CourtReservationEvent) => window.alert(reservation.title),
+    (reservation: CourtReservationEvent) => {
+      return;
+    },
     []
   );
 
