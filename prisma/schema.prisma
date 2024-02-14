@@ -36,7 +36,8 @@ model Reservation {
   startTime DateTime
   endTime DateTime
   courtId String
+  bookingName String
   court Court @relation(fields: [courtId], references: [id], onDelete: Cascade)
-  
+
   @@index([courtId])
 }
