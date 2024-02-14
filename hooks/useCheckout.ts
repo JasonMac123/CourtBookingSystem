@@ -9,7 +9,7 @@ interface CheckoutModalStore {
   onClose: () => void;
 }
 
-const useCheckout = create<CheckoutModalStore>((set) => ({
+export const useCheckout = create<CheckoutModalStore>((set) => ({
   isOpen: false,
   reservationData: undefined,
   onOpen: () => set({ isOpen: true }),
