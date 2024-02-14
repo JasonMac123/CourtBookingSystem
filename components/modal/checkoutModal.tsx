@@ -6,7 +6,7 @@ import { IoMdClose } from "react-icons/io";
 import { useCheckout } from "@/hooks/useCheckout";
 import { Button } from "../ui/button";
 
-const Modal: React.FC = () => {
+const CheckoutModal: React.FC = () => {
   const { isOpen, onClose } = useCheckout();
 
   const [showModal, setShowModal] = useState(isOpen);
@@ -68,4 +68,4 @@ const Modal: React.FC = () => {
   );
 };
 
-export default Modal;
+export default CheckoutModal;

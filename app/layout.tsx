@@ -6,9 +6,11 @@ import { dark } from "@clerk/themes";
 
 import "./globals.css";
 
-import Navbar from "@/components/layout/navbar";
-import { QueryProvider } from "@/components/queryProvider";
 import { cn } from "@/lib/utils";
+
+import { QueryProvider } from "@/components/queryProvider";
+import Navbar from "@/components/layout/navbar";
+import CheckoutModal from "@/components/modal/checkoutModal";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -31,6 +33,7 @@ export default function RootLayout({
           }}
         >
           <QueryProvider>
+            <CheckoutModal />
             <Navbar />
             {children}
           </QueryProvider>
