@@ -16,6 +16,7 @@ const CourtIdPage = async ({ params }: CourtIdPageProps) => {
     },
     include: {
       reservations: true,
+      sports: true,
     },
   });
 
@@ -30,8 +31,8 @@ const CourtIdPage = async ({ params }: CourtIdPageProps) => {
   return (
     <main className="mt-20">
       <div className="flex flex-row">
-        <CourtCalendar />
-        <CourtDetails />
+        <CourtCalendar data={courtData} />
+        <CourtDetails data={courtData} />
       </div>
     </main>
   );

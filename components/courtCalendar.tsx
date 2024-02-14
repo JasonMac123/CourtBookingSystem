@@ -6,7 +6,7 @@ import { Calendar, Views, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import { CourtWithReservations } from "@/types";
+import { CourtWithReservationsAndSports } from "@/types";
 
 const localizer = momentLocalizer(moment);
 
@@ -22,7 +22,7 @@ type CourtEvent = {
 };
 
 interface CourtCalendarProps {
-  data: CourtWithReservations;
+  data: CourtWithReservationsAndSports;
 }
 
 export const CourtCalendar = ({ data }: CourtCalendarProps) => {
