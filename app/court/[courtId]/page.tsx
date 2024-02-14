@@ -1,5 +1,8 @@
 import { db } from "@/prisma";
 
+import { CourtDetails } from "@/components/court/courtDetails";
+import { CourtCalendar } from "@/components/courtCalendar";
+
 interface CourtIdPageProps {
   params: {
     courtId: string;
@@ -24,7 +27,14 @@ const CourtIdPage = async ({ params }: CourtIdPageProps) => {
     );
   }
 
-  return <div>{courtData.title}</div>;
+  return (
+    <main className="mt-20">
+      <div className="flex flex-row">
+        <CourtCalendar />
+        <CourtDetails />
+      </div>
+    </main>
+  );
 };
 
 export default CourtIdPage;
