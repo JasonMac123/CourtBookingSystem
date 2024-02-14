@@ -1,54 +1,53 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
-import { Calendar, momentLocalizer } from "react-big-calendar";
-import withDragAndDrop, {
-  withDragAndDropProps,
-} from "react-big-calendar/lib/addons/dragAndDrop";
+import { Calendar, Views, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 
-import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
 const localizer = momentLocalizer(moment);
-const DnDCalendar = withDragAndDrop(Calendar);
+
+type CourtReservationEvent = {
+  start: Date;
+  end: Date;
+  title: string;
+};
+
+type CourtEvent = {
+  start: Date;
+  end: Date;
+};
 
 export const CourtCalendar = () => {
-  const [events, setEvents] = useState([
-    {
-      title: "Learn cool stuff",
-      start: moment().toDate(),
-      end: moment().add(1, "hour").toDate(),
+  const [reservation, setReservation] = useState<Array<CourtReservationEvent>>(
+    []
+  );
+
+  const handleSelectSlot = useCallback(
+    ({ start, end }: CourtEvent) => {
+      setReservation([{ start, end, title: "Court Reservation" }]);
     },
-  ]);
+    [setReservation]
+  );
 
-  const onEventResize: withDragAndDropProps["onEventResize"] = (data) => {
-    const { start, end } = data;
-
-    setEvents((currentEvents) => {
-      const firstEvent = {
-        start: moment(new Date(start)).toDate(),
-        end: moment(new Date(end)).toDate(),
-        title: "",
-      };
-      return [...currentEvents, firstEvent];
-    });
-  };
-
-  const onEventDrop: withDragAndDropProps["onEventDrop"] = (data) => {
-    console.log(data);
-  };
+  const handleSelectEvent = useCallback(
+    (reservation: CourtReservationEvent) => window.alert(reservation.title),
+    []
+  );
 
   return (
-    <DnDCalendar
-      defaultView="week"
-      events={events}
-      localizer={localizer}
-      onEventDrop={onEventDrop}
-      onEventResize={onEventResize}
-      resizable
-      style={{ height: "100vh" }}
-    />
+    <div className="h-full">
+      <Calendar
+        dayLayoutAlgorithm={"no-overlap"}
+        defaultView={Views.WEEK}
+        localizer={localizer}
+        events={reservation}
+        selectable
+        onSelectEvent={handleSelectEvent}
+        onSelectSlot={handleSelectSlot}
+      />
+    </div>
   );
 };
