@@ -6,6 +6,7 @@ import { Calendar, Views, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 
 import "react-big-calendar/lib/css/react-big-calendar.css";
+import { CourtWithReservations } from "@/types";
 
 const localizer = momentLocalizer(moment);
 
@@ -20,7 +21,12 @@ type CourtEvent = {
   end: Date;
 };
 
-export const CourtCalendar = () => {
+interface CourtCalendarProps {
+  data: CourtWithReservations;
+}
+
+export const CourtCalendar = ({ data }: CourtCalendarProps) => {
+  const [events, setEvents] = useState(data.reservations);
   const [reservation, setReservation] = useState<Array<CourtReservationEvent>>(
     []
   );
