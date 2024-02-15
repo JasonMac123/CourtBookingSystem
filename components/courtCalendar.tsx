@@ -54,7 +54,7 @@ export const CourtCalendar = ({ data }: CourtCalendarProps) => {
     <div className="h-full">
       <Calendar
         dayLayoutAlgorithm={"no-overlap"}
-        defaultView={Views.WEEK}
+        defaultView={Views.DAY}
         localizer={localizer}
         events={events}
         selectable
