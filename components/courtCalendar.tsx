@@ -3,23 +3,16 @@
 import { useCallback, useState } from "react";
 
 import { Calendar, Views, momentLocalizer } from "react-big-calendar";
-import moment, { Moment } from "moment";
+import moment from "moment";
 
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import { CourtWithReservationsAndSports } from "@/types";
+import {
+  CourtEvent,
+  CourtReservationEvent,
+  CourtWithReservationsAndSports,
+} from "@/types";
 
 const localizer = momentLocalizer(moment);
-
-type CourtReservationEvent = {
-  start: Moment;
-  end: Moment;
-  title: string;
-};
-
-type CourtEvent = {
-  start: Date;
-  end: Date;
-};
 
 interface CourtCalendarProps {
   data: CourtWithReservationsAndSports;
