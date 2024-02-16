@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 
 import { Calendar, Views, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
@@ -31,6 +31,7 @@ export const CourtCalendar = ({ data }: CourtCalendarProps) => {
   const [reservation, setReservation] = useState<Array<CourtReservationEvent>>(
     []
   );
+  const [date, setDate] = useState(moment().toDate());
 
   const handleSelectSlot = useCallback(
     ({ start, end }: CourtEvent) => {
@@ -50,8 +51,25 @@ export const CourtCalendar = ({ data }: CourtCalendarProps) => {
     []
   );
 
+  const onNavigate = useCallback((newDate: Date) => {
+    if (newDate.getDate() < moment().toDate().getDate()) {
+      return;
+    }
+
+    setDate(newDate);
+  }, []);
+
+  const { views } = useMemo(
+    () => ({
+      views: {
+        day: true,
+      },
+    }),
+    []
+  );
+
   return (
-    <div className="h-full">
+    <div className="h-full bg-white rounded-xl p-4">
       <Calendar
         dayLayoutAlgorithm={"no-overlap"}
         defaultView={Views.DAY}
@@ -60,6 +78,9 @@ export const CourtCalendar = ({ data }: CourtCalendarProps) => {
         selectable
         onSelectEvent={handleSelectEvent}
         onSelectSlot={handleSelectSlot}
+        date={date}
+        onNavigate={onNavigate}
+        views={views}
       />
     </div>
   );
