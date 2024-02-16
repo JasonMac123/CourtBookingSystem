@@ -1,7 +1,7 @@
-import { CourtWithReservations } from "@/types";
+import { CourtWithReservationsAndSports } from "@/types";
 
 interface CourtDetailsProps {
-  data: CourtWithReservations;
+  data: CourtWithReservationsAndSports;
 }
 
 export const CourtDetails = ({ data }: CourtDetailsProps) => {
