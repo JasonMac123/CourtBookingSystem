@@ -96,6 +96,7 @@ export const CourtCalendar = ({ data }: CourtCalendarProps) => {
         min={minDate}
         onNavigate={onNavigate}
         views={views}
+        style={{ height: 800, width: 600 }}
       />
     </div>
   );
