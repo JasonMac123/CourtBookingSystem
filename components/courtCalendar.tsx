@@ -22,23 +22,31 @@ export const CourtCalendar = ({ data }: CourtCalendarProps) => {
   const eventData = data.reservations.map((item) => {
     return {
       title: `Court Booked by ${item.bookingName}`,
-      start: moment(item.startTime),
-      end: moment(item.endTime),
+      start: moment(item.startTime).toDate(),
+      end: moment(item.endTime).toDate(),
     };
   });
 
   const [events, setEvents] = useState<CourtReservationEvent[]>(eventData);
-  const [reservation, setReservation] = useState<Array<CourtReservationEvent>>(
-    []
-  );
+  const [reservation, setReservation] = useState<CourtReservationEvent>();
   const [date, setDate] = useState(moment().toDate());
 
   const handleSelectSlot = useCallback(
     ({ start, end }: CourtEvent) => {
-      let newStart = moment(start);
-      const newEnd = moment(end);
-      setReservation([
-        { start: newStart, end: newEnd, title: "Court Reservation" },
+      let newStart = moment(start).toDate();
+      const newEnd = moment(end).toDate();
+      setReservation({
+        start: newStart,
+        end: newEnd,
+        title: "Court Reservation",
+      });
+      setEvents([
+        ...events,
+        {
+          start: newStart,
+          end: newEnd,
+          title: "Court Reservation",
+        },
       ]);
     },
     [setReservation]
@@ -68,6 +76,11 @@ export const CourtCalendar = ({ data }: CourtCalendarProps) => {
     []
   );
 
+  const minDate = useMemo(
+    () => moment(date).set({ hour: 8, minute: 0 }),
+    [date]
+  ).toDate();
+
   return (
     <div className="h-full bg-white rounded-xl p-4">
       <Calendar
@@ -75,10 +88,12 @@ export const CourtCalendar = ({ data }: CourtCalendarProps) => {
         defaultView={Views.DAY}
         localizer={localizer}
         events={events}
+        step={60}
         selectable
         onSelectEvent={handleSelectEvent}
         onSelectSlot={handleSelectSlot}
         date={date}
+        min={minDate}
         onNavigate={onNavigate}
         views={views}
       />

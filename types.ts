@@ -10,8 +10,8 @@ export type CourtWithReservationsAndSports = Court & {
 };
 
 export type CourtReservationEvent = {
-  start: Moment;
-  end: Moment;
+  start: Date;
+  end: Date;
   title: string;
 };
 
