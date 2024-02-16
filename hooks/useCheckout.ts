@@ -14,7 +14,7 @@ export const useCheckout = create<CheckoutModalStore>((set) => ({
   isOpen: false,
   reservationData: undefined,
   onOpen: () => set({ isOpen: true }),
-  onClose: () => set({ isOpen: false }),
+  onClose: () => set({ isOpen: false, reservationData: undefined }),
   setReservationData: (reservation: CourtReservationEvent) =>
     set({ reservationData: reservation }),
 }));
