@@ -29,8 +29,8 @@ const CourtIdPage = async ({ params }: CourtIdPageProps) => {
   }
 
   return (
-    <main className="mt-20">
-      <div className="flex flex-row">
+    <main className="mt-24 mb-10">
+      <div className="flex flex-row justify-center gap-8">
         <CourtCalendar data={courtData} />
         <CourtDetails data={courtData} />
       </div>
