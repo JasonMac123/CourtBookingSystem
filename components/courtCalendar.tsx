@@ -3,9 +3,12 @@
 import { useCallback, useMemo, useState } from "react";
 
 import { Calendar, Views, momentLocalizer } from "react-big-calendar";
+import "react-big-calendar/lib/css/react-big-calendar.css";
+
 import moment from "moment";
 
-import "react-big-calendar/lib/css/react-big-calendar.css";
+import { useCheckout } from "@/hooks/useCheckout";
+
 import {
   CourtEvent,
   CourtReservationEvent,
@@ -31,6 +34,8 @@ export const CourtCalendar = ({ data }: CourtCalendarProps) => {
   const [reservation, setReservation] = useState<CourtReservationEvent>();
   const [date, setDate] = useState(moment().toDate());
 
+  const { onOpen, setReservationData } = useCheckout();
+
   const handleSelectSlot = useCallback(
     ({ start, end }: CourtEvent) => {
       let newStart = moment(start).toDate();
@@ -54,6 +59,8 @@ export const CourtCalendar = ({ data }: CourtCalendarProps) => {
 
   const handleSelectEvent = useCallback(
     (reservation: CourtReservationEvent) => {
+      setReservationData(reservation);
+      onOpen();
       return;
     },
     []
