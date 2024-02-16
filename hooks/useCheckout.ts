@@ -1,12 +1,13 @@
 import { create } from "zustand";
 
-import { Reservation } from "@prisma/client";
+import { CourtReservationEvent } from "@/types";
 
 interface CheckoutModalStore {
   isOpen: boolean;
-  reservationData: Reservation | undefined;
+  reservationData: CourtReservationEvent | undefined;
   onOpen: () => void;
   onClose: () => void;
+  setReservationData: (reservation: CourtReservationEvent) => void;
 }
 
 export const useCheckout = create<CheckoutModalStore>((set) => ({
@@ -14,4 +15,6 @@ export const useCheckout = create<CheckoutModalStore>((set) => ({
   reservationData: undefined,
   onOpen: () => set({ isOpen: true }),
   onClose: () => set({ isOpen: false }),
+  setReservationData: (reservation: CourtReservationEvent) =>
+    set({ reservationData: reservation }),
 }));
