@@ -60,7 +60,11 @@ export const CourtCalendar = ({ data }: CourtCalendarProps) => {
 
   const handleSelectEvent = useCallback(
     (reservation: CourtReservationEvent) => {
-      setReservationData(reservation);
+      setReservationData({
+        ...reservation,
+        price: data.price,
+        courtId: data.id,
+      });
       onOpen();
       return;
     },

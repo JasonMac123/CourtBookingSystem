@@ -1,4 +1,3 @@
-import { Moment } from "moment";
 import { Sport, Court, Reservation } from "@prisma/client";
 
 export type CourtWithSports = Court & { sports: Sport[] };
@@ -19,3 +18,8 @@ export type CourtEvent = {
   start: Date;
   end: Date;
 };
+
+export interface CheckoutInformation extends CourtReservationEvent {
+  price: number;
+  courtId: string;
+}
