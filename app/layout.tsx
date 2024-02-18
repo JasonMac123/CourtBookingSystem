@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils";
 import { QueryProvider } from "@/components/queryProvider";
 import Navbar from "@/components/layout/navbar";
 import CheckoutModal from "@/components/modal/checkoutModal";
+import { ToastNotifcation } from "@/components/layout/toastNotification";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -33,6 +34,7 @@ export default function RootLayout({
           }}
         >
           <QueryProvider>
+            <ToastNotifcation />
             <CheckoutModal />
             <Navbar />
             {children}
