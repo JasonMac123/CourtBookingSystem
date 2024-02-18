@@ -57,7 +57,12 @@ const CheckoutModal: React.FC = () => {
               <div className="relative p-7 flex-auto overflow-y-auto"></div>
               <div className="flex flex-col gap-2 p-6">
                 <div className="flex items-center w-full">
-                  <Button onClick={() => handleSubmit()} />
+                  <Button
+                    onClick={() => handleSubmit()}
+                    className="w-full py-4 font-semibold text-white"
+                  >
+                    Purchase
+                  </Button>
                 </div>
               </div>
             </div>
