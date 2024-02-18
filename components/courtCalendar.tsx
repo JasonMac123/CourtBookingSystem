@@ -14,6 +14,7 @@ import {
   CourtReservationEvent,
   CourtWithReservationsAndSports,
 } from "@/types";
+import { toast } from "react-toastify";
 
 const localizer = momentLocalizer(moment);
 
@@ -73,6 +74,7 @@ export const CourtCalendar = ({ data }: CourtCalendarProps) => {
       newDate.getDate() < currentDate.getDate() &&
       newDate.getMonth() <= currentDate.getMonth()
     ) {
+      toast("Cannot book dates in the past");
       return;
     }
 
