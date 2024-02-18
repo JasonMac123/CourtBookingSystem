@@ -6,7 +6,7 @@ import { IoMdClose } from "react-icons/io";
 import { useCheckout } from "@/hooks/useCheckout";
 import { Button } from "../ui/button";
 
-const CheckoutModal: React.FC = () => {
+const CheckoutModal = () => {
   const { isOpen, onClose } = useCheckout();
 
   const [showModal, setShowModal] = useState(isOpen);
