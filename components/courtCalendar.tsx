@@ -67,7 +67,12 @@ export const CourtCalendar = ({ data }: CourtCalendarProps) => {
   );
 
   const onNavigate = useCallback((newDate: Date) => {
-    if (newDate.getDate() < moment().toDate().getDate()) {
+    const currentDate = moment().toDate();
+
+    if (
+      newDate.getDate() < currentDate.getDate() &&
+      newDate.getMonth() <= currentDate.getMonth()
+    ) {
       return;
     }
 
