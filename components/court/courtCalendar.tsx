@@ -35,7 +35,7 @@ export const CourtCalendar = ({ data }: CourtCalendarProps) => {
   const [reservation, setReservation] = useState<CourtReservationEvent>();
   const [date, setDate] = useState(moment().toDate());
 
-  const { onOpen, setReservationData } = useCheckout();
+  const { onOpen, setReservationData, setCourtData } = useCheckout();
 
   const handleSelectSlot = useCallback(
     ({ start, end }: CourtEvent) => {
@@ -60,11 +60,8 @@ export const CourtCalendar = ({ data }: CourtCalendarProps) => {
 
   const handleSelectEvent = useCallback(
     (reservation: CourtReservationEvent) => {
-      setReservationData({
-        ...reservation,
-        price: data.price,
-        courtId: data.id,
-      });
+      setReservationData(reservation);
+      setCourtData(data);
       onOpen();
       return;
     },
