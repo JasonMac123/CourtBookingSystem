@@ -1,7 +1,7 @@
 import { db } from "@/prisma";
 
 import { CourtDetails } from "@/components/court/courtDetails";
-import { CourtCalendar } from "@/components/courtCalendar";
+import { CourtCalendar } from "@/components/court/courtCalendar";
 
 interface CourtIdPageProps {
   params: {

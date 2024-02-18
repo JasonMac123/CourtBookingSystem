@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import { db } from "@/prisma";
 
 import { CourtList } from "@/components/court/courtList";
-import { Filter } from "@/components/filter";
+import { Filter } from "@/components/layout/filter";
 import { CourtListSkeleton } from "@/components/court/courtListSkeleton";
 
 const Home = async () => {

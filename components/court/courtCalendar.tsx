@@ -6,6 +6,7 @@ import { Calendar, Views, momentLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
 import moment from "moment";
+import { toast } from "react-toastify";
 
 import { useCheckout } from "@/hooks/useCheckout";
 
@@ -14,7 +15,6 @@ import {
   CourtReservationEvent,
   CourtWithReservationsAndSports,
 } from "@/types";
-import { toast } from "react-toastify";
 
 const localizer = momentLocalizer(moment);
 

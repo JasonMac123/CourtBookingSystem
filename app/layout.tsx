@@ -8,7 +8,7 @@ import "./globals.css";
 
 import { cn } from "@/lib/utils";
 
-import { QueryProvider } from "@/components/queryProvider";
+import { QueryProvider } from "@/components/layout/queryProvider";
 import Navbar from "@/components/layout/navbar";
 import CheckoutModal from "@/components/modal/checkoutModal";
 import { ToastNotifcation } from "@/components/layout/toastNotification";
