@@ -28,7 +28,7 @@ export const CourtBookingInformation = ({
       <div>
         {startPoint} to {endPoint}
       </div>
-      <div>${totalPrice} tax included</div>
+      <div>${hours > 1 ? totalPrice : totalPrice + 10} tax included</div>
     </>
   );
 };
