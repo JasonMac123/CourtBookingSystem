@@ -21,14 +21,14 @@ export const CourtBookingInformation = ({
   });
 
   const hours = reservation.end.getHours() - reservation.start.getHours();
-  const totalPrice = hours * price;
+  const totalPrice = hours > 1 ? price * hours : price + 10;
 
   return (
     <>
       <div>
         {startPoint} to {endPoint}
       </div>
-      <div>${hours > 1 ? totalPrice : totalPrice + 10} tax included</div>
+      <div>${totalPrice} tax included</div>
     </>
   );
 };
