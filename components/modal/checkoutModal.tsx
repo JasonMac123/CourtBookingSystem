@@ -62,6 +62,7 @@ export const CheckoutModal = ({ data }: CheckoutModalProps) => {
       onClose={onClose}
       buttonTitle={buttonLabel}
       body={bodyContent}
+      onSubmit={onSubmit}
     />
   );
 };

@@ -10,16 +10,21 @@ interface ModalProps {
   onClose: () => void;
   buttonTitle: string;
   body: React.ReactElement;
+  onSubmit: () => void;
 }
 
-const Modal = ({ isOpen, onClose, buttonTitle, body }: ModalProps) => {
+const Modal = ({
+  isOpen,
+  onClose,
+  buttonTitle,
+  body,
+  onSubmit,
+}: ModalProps) => {
   const [showModal, setShowModal] = useState(isOpen);
 
   useEffect(() => {
     setShowModal(isOpen);
   }, [isOpen]);
-
-  const onSubmit = () => {};
 
   const handleClose = useCallback(() => {
     setShowModal(false);
