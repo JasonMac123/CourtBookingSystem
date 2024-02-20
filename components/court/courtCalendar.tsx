@@ -98,6 +98,21 @@ export const CourtCalendar = ({ data }: CourtCalendarProps) => {
 
   return (
     <div className="h-full bg-white rounded-xl p-4">
+      <div className="flex gap-4 pb-4">
+        Booking Time
+        <div>
+          {reservation && `${reservation?.start.getHours()}:00 - `}
+          {reservation &&
+            `${reservation?.end.getHours()}:${
+              reservation?.end.getMinutes() === 59 ? "59" : "00"
+            }`}
+        </div>
+        <div>
+          {reservation &&
+            (reservation?.end.getHours() - reservation?.start.getHours()) *
+              data.price}
+        </div>
+      </div>
       <Calendar
         dayLayoutAlgorithm={"no-overlap"}
         defaultView={Views.DAY}
@@ -111,7 +126,7 @@ export const CourtCalendar = ({ data }: CourtCalendarProps) => {
         min={minDate}
         onNavigate={onNavigate}
         views={views}
-        style={{ height: 800, width: 600 }}
+        style={{ height: 700, width: 600 }}
       />
     </div>
   );
