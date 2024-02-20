@@ -1,5 +1,3 @@
-import moment from "moment";
-
 import { CourtReservationEvent } from "@/types";
 
 interface CourtBookingInformationProps {
