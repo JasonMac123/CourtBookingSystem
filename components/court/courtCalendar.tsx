@@ -15,6 +15,7 @@ import {
   CourtReservationEvent,
   CourtWithReservationsAndSports,
 } from "@/types";
+import { CourtBookingInformation } from "./courtBookingInformation";
 
 const localizer = momentLocalizer(moment);
 
@@ -98,20 +99,14 @@ export const CourtCalendar = ({ data }: CourtCalendarProps) => {
 
   return (
     <div className="h-full bg-white rounded-xl p-4">
-      <div className="flex gap-4 pb-4">
+      <div className="flex gap-4 pb-4 justify-between">
         Booking Time
-        <div>
-          {reservation && `${reservation?.start.getHours()}:00 - `}
-          {reservation &&
-            `${reservation?.end.getHours()}:${
-              reservation?.end.getMinutes() === 59 ? "59" : "00"
-            }`}
-        </div>
-        <div>
-          {reservation &&
-            (reservation?.end.getHours() - reservation?.start.getHours()) *
-              data.price}
-        </div>
+        {reservation && (
+          <CourtBookingInformation
+            price={data.price}
+            reservation={reservation}
+          />
+        )}
       </div>
       <Calendar
         dayLayoutAlgorithm={"no-overlap"}
