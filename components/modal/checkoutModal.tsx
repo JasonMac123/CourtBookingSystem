@@ -2,6 +2,9 @@
 
 import Image from "next/image";
 
+import axios from "axios";
+import Stripe from "stripe";
+
 import { useCheckout } from "@/hooks/useCheckout";
 
 import Modal from "./modal";
@@ -19,6 +22,7 @@ enum STEPS {
 
 export const CheckoutModal = ({ data }: CheckoutModalProps) => {
   const { isOpen, onClose, reservationData } = useCheckout();
+  const [clientSecret, setClientSecret] = useState<String | null>("");
   const [step, setStep] = useState(STEPS.INFO);
 
   const buttonLabel = useMemo(() => {
@@ -28,12 +32,20 @@ export const CheckoutModal = ({ data }: CheckoutModalProps) => {
     return "Checkout";
   }, [step]);
 
-  const onSubmit = () => {
-    if (step !== STEPS.CHECKOUT) {
-      setStep((value) => value + 1);
+  const onSubmit = async () => {
+    if (step === STEPS.INFO) {
+      const hours =
+        reservationData!.end.getHours() - reservationData!.start.getHours();
+      const totalPrice = hours > 1 ? data.price * hours : data.price + 10;
+
+      const responseData = await axios.post("/create-payment-intent", {
+        price: totalPrice,
+      });
+
+      const paymentIntent: Stripe.PaymentIntent = responseData.data();
+      setClientSecret(paymentIntent.client_secret);
       return;
     }
-
     return;
   };
 
