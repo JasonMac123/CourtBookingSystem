@@ -42,7 +42,7 @@ export const CheckoutModal = ({ data }: CheckoutModalProps) => {
         reservationData!.end.getHours() - reservationData!.start.getHours();
       const totalPrice = hours > 1 ? data.price * hours : data.price + 10;
 
-      const responseData = await axios.post("/create-payment-intent", {
+      const responseData = await axios.post("/api/create-payment-intent", {
         price: totalPrice,
       });
 
