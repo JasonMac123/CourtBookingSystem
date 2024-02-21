@@ -4,7 +4,6 @@ const CheckoutForm = () => {
   return (
     <form>
       <PaymentElement />
-      <button>Submit</button>
     </form>
   );
 };
