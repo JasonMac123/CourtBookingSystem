@@ -1,15 +1,17 @@
 "use client";
 
 import Image from "next/image";
+import { useMemo, useState } from "react";
 
 import axios from "axios";
 import Stripe from "stripe";
+
+import { loadStripe } from "@stripe/stripe-js";
 
 import { useCheckout } from "@/hooks/useCheckout";
 
 import Modal from "./modal";
 import { CourtWithReservationsAndSports } from "@/types";
-import { useMemo, useState } from "react";
 
 interface CheckoutModalProps {
   data: CourtWithReservationsAndSports;
