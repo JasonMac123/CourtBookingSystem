@@ -6,12 +6,14 @@ import { useMemo, useState } from "react";
 import axios from "axios";
 import Stripe from "stripe";
 
-import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
 
+import { getStripe } from "@/lib/getStripe";
 import { useCheckout } from "@/hooks/useCheckout";
 
 import Modal from "./modal";
 import { CourtWithReservationsAndSports } from "@/types";
+import CheckoutForm from "../ui/checkoutForm";
 
 interface CheckoutModalProps {
   data: CourtWithReservationsAndSports;
@@ -67,7 +69,13 @@ export const CheckoutModal = ({ data }: CheckoutModalProps) => {
   );
 
   if (step === STEPS.CHECKOUT) {
-    bodyContent = <div id="checkout"></div>;
+    bodyContent = (
+      <div id="checkout">
+        <Elements stripe={getStripe()}>
+          <CheckoutForm />
+        </Elements>
+      </div>
+    );
   }
 
   return (
