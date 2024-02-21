@@ -2,17 +2,17 @@
 
 import Image from "next/image";
 import { useMemo, useState } from "react";
-
-import axios from "axios";
+import { toast } from "react-toastify";
 import Stripe from "stripe";
-
 import { Elements } from "@stripe/react-stripe-js";
+import axios from "axios";
 
 import { getStripe } from "@/lib/getStripe";
 import { useCheckout } from "@/hooks/useCheckout";
 
-import Modal from "./modal";
 import { CourtWithReservationsAndSports } from "@/types";
+
+import Modal from "./modal";
 import CheckoutForm from "../ui/checkoutForm";
 
 interface CheckoutModalProps {
@@ -26,7 +26,7 @@ enum STEPS {
 
 export const CheckoutModal = ({ data }: CheckoutModalProps) => {
   const { isOpen, onClose, reservationData } = useCheckout();
-  const [clientSecret, setClientSecret] = useState<String | null>("");
+  const [clientSecret, setClientSecret] = useState<string>("");
   const [step, setStep] = useState(STEPS.INFO);
 
   const buttonLabel = useMemo(() => {
@@ -43,10 +43,15 @@ export const CheckoutModal = ({ data }: CheckoutModalProps) => {
       const totalPrice = hours > 1 ? data.price * hours : data.price + 10;
 
       const responseData = await axios.post("/api/create-payment-intent", {
-        price: totalPrice,
+        amount: totalPrice,
       });
 
-      const paymentIntent: Stripe.PaymentIntent = responseData.data();
+      const paymentIntent: Stripe.PaymentIntent = responseData.data;
+      if (!paymentIntent.client_secret) {
+        toast("Error, could not proceed with checkout. Try again.");
+        return;
+      }
+      setStep(STEPS.CHECKOUT);
       setClientSecret(paymentIntent.client_secret);
       return;
     }
@@ -71,9 +76,14 @@ export const CheckoutModal = ({ data }: CheckoutModalProps) => {
   if (step === STEPS.CHECKOUT) {
     bodyContent = (
       <div id="checkout">
-        <Elements stripe={getStripe()}>
-          <CheckoutForm />
-        </Elements>
+        {clientSecret && (
+          <Elements
+            stripe={getStripe()}
+            options={{ clientSecret: clientSecret }}
+          >
+            <CheckoutForm />
+          </Elements>
+        )}
       </div>
     );
   }
