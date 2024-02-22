@@ -22,6 +22,7 @@ interface CheckoutModalProps {
 enum STEPS {
   INFO = 0,
   CHECKOUT = 1,
+  CONFIRM = 2,
 }
 
 export const CheckoutModal = ({ data }: CheckoutModalProps) => {
@@ -86,6 +87,10 @@ export const CheckoutModal = ({ data }: CheckoutModalProps) => {
         )}
       </div>
     );
+  }
+
+  if (step === STEPS.CONFIRM) {
+    bodyContent = <div></div>;
   }
 
   return (
