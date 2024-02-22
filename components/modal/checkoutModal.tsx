@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useMemo, useState } from "react";
 import { toast } from "react-toastify";
 import Stripe from "stripe";
-import { Elements, useElements, useStripe } from "@stripe/react-stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
 import axios from "axios";
 
 import { getStripe } from "@/lib/getStripe";
@@ -13,13 +13,13 @@ import { useCheckout } from "@/hooks/useCheckout";
 import { CourtWithReservationsAndSports } from "@/types";
 
 import Modal from "./modal";
-import CheckoutForm from "../ui/checkoutForm";
+import CheckoutForm from "../layout/checkoutForm";
 
 interface CheckoutModalProps {
   data: CourtWithReservationsAndSports;
 }
 
-enum STEPS {
+export enum STEPS {
   INFO = 0,
   CHECKOUT = 1,
   CONFIRM = 2,
@@ -27,8 +27,6 @@ enum STEPS {
 
 export const CheckoutModal = ({ data }: CheckoutModalProps) => {
   const { isOpen, onClose, reservationData } = useCheckout();
-  const elements = useElements();
-  const stripe = useStripe();
 
   const [clientSecret, setClientSecret] = useState<string>("");
   const [step, setStep] = useState(STEPS.INFO);
@@ -59,29 +57,6 @@ export const CheckoutModal = ({ data }: CheckoutModalProps) => {
       setClientSecret(paymentIntent.client_secret);
       return;
     }
-
-    if (step === STEPS.CHECKOUT) {
-      if (!stripe || !elements) {
-        return;
-      }
-
-      const result = await stripe.confirmPayment({
-        elements,
-        clientSecret: clientSecret,
-        confirmParams: {
-          return_url: `http://localhost:3000/court/${data.id}`,
-        },
-      });
-
-      if (result.error) {
-        toast("Something went wrong with the payment process");
-      }
-
-      setStep(STEPS.CONFIRM);
-
-      return;
-    }
-
     return;
   };
 
@@ -108,7 +83,11 @@ export const CheckoutModal = ({ data }: CheckoutModalProps) => {
             stripe={getStripe()}
             options={{ clientSecret: clientSecret }}
           >
-            <CheckoutForm />
+            <CheckoutForm
+              clientSecret={clientSecret}
+              setStep={setStep}
+              courtId={data.id}
+            />
           </Elements>
         )}
       </div>
