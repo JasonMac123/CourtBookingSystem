@@ -76,7 +76,12 @@ export const CheckoutModal = ({ data }: CheckoutModalProps) => {
       if (result.error) {
         toast("Something went wrong with the payment process");
       }
+
+      setStep(STEPS.CONFIRM);
+
+      return;
     }
+
     return;
   };
 
