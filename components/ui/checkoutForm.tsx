@@ -3,7 +3,17 @@ import { PaymentElement } from "@stripe/react-stripe-js";
 const CheckoutForm = () => {
   return (
     <form>
-      <PaymentElement />
+      <PaymentElement
+        options={{
+          business: { name: "CourtBooking" },
+          layout: {
+            type: "accordion",
+            defaultCollapsed: false,
+            radios: false,
+            spacedAccordionItems: true,
+          },
+        }}
+      />
     </form>
   );
 };
