@@ -1,4 +1,3 @@
-import { Dispatch, SetStateAction } from "react";
 import {
   PaymentElement,
   useElements,
@@ -6,20 +5,14 @@ import {
 } from "@stripe/react-stripe-js";
 import { toast } from "react-toastify";
 
-import { STEPS } from "../modal/checkoutModal";
 import { Button } from "../ui/button";
 
 interface CheckoutFormProps {
   clientSecret: string;
   courtId: string;
-  setStep: Dispatch<SetStateAction<STEPS>>;
 }
 
-const CheckoutForm = ({
-  clientSecret,
-  setStep,
-  courtId,
-}: CheckoutFormProps) => {
+const CheckoutForm = ({ clientSecret, courtId }: CheckoutFormProps) => {
   const elements = useElements();
   const stripe = useStripe();
 
@@ -27,6 +20,12 @@ const CheckoutForm = ({
     event.preventDefault();
 
     if (!stripe || !elements) {
+      return;
+    }
+
+    const { error: submitError } = await elements.submit();
+    if (submitError) {
+      toast(`${submitError.message}`);
       return;
     }
 
@@ -41,9 +40,6 @@ const CheckoutForm = ({
     if (result.error) {
       toast("Something went wrong with the payment process");
     }
-
-    setStep(STEPS.CONFIRM);
-    return;
   };
 
   return (

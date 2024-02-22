@@ -22,7 +22,6 @@ interface CheckoutModalProps {
 export enum STEPS {
   INFO = 0,
   CHECKOUT = 1,
-  CONFIRM = 2,
 }
 
 export const CheckoutModal = ({ data }: CheckoutModalProps) => {
@@ -83,19 +82,11 @@ export const CheckoutModal = ({ data }: CheckoutModalProps) => {
             stripe={getStripe()}
             options={{ clientSecret: clientSecret }}
           >
-            <CheckoutForm
-              clientSecret={clientSecret}
-              setStep={setStep}
-              courtId={data.id}
-            />
+            <CheckoutForm clientSecret={clientSecret} courtId={data.id} />
           </Elements>
         )}
       </div>
     );
-  }
-
-  if (step === STEPS.CONFIRM) {
-    bodyContent = <div></div>;
   }
 
   return (
