@@ -26,6 +26,7 @@ export enum STEPS {
 
 export const CheckoutModal = ({ data }: CheckoutModalProps) => {
   const { isOpen, onClose, reservationData } = useCheckout();
+  const [disabled, setDisabled] = useState(false);
 
   const [clientSecret, setClientSecret] = useState<string>("");
   const [step, setStep] = useState(STEPS.INFO);
@@ -53,6 +54,7 @@ export const CheckoutModal = ({ data }: CheckoutModalProps) => {
         return;
       }
       setStep(STEPS.CHECKOUT);
+      setDisabled(true);
       setClientSecret(paymentIntent.client_secret);
       return;
     }
@@ -96,6 +98,7 @@ export const CheckoutModal = ({ data }: CheckoutModalProps) => {
       buttonTitle={buttonLabel}
       body={bodyContent}
       onSubmit={onSubmit}
+      disabled={disabled}
     />
   );
 };

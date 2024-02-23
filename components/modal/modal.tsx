@@ -8,6 +8,7 @@ import { Button } from "../ui/button";
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
+  disabled: boolean;
   buttonTitle: string;
   body: React.ReactElement;
   onSubmit: () => void;
@@ -16,6 +17,7 @@ interface ModalProps {
 const Modal = ({
   isOpen,
   onClose,
+  disabled,
   buttonTitle,
   body,
   onSubmit,
@@ -66,16 +68,18 @@ const Modal = ({
               <div className="relative p-7 flex-auto overflow-y-auto">
                 {body}
               </div>
-              <div className="flex flex-col gap-2 p-6">
-                <div className="flex items-center w-full">
-                  <Button
-                    onClick={() => handleSubmit()}
-                    className="w-full py-4 font-semibold text-white"
-                  >
-                    {buttonTitle}
-                  </Button>
+              {!disabled && (
+                <div className="flex flex-col gap-2 p-6">
+                  <div className="flex items-center w-full">
+                    <Button
+                      onClick={() => handleSubmit()}
+                      className="w-full py-4 font-semibold text-white"
+                    >
+                      {buttonTitle}
+                    </Button>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
         </div>
