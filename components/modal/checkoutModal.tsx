@@ -69,7 +69,7 @@ export const CheckoutModal = ({ data }: CheckoutModalProps) => {
 
   let bodyContent = (
     <div>
-      <div className="flex gap-4 justify-between">
+      <div className="flex flex-col md:flex-row gap-4 md:justify-between">
         <div className="relative rounded-xl overflow-auto mx-auto w-60 h-40">
           <Image
             src={data.imageId}
