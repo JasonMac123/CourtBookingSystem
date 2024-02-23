@@ -40,6 +40,8 @@ const CheckoutForm = ({ clientSecret, courtId }: CheckoutFormProps) => {
     if (result.error) {
       toast("Something went wrong with the payment process");
     }
+
+    toast("Booking confirmed");
   };
 
   return (
@@ -55,7 +57,7 @@ const CheckoutForm = ({ clientSecret, courtId }: CheckoutFormProps) => {
           },
         }}
       />
-      <Button>Submit</Button>
+      <Button className="mt-4 w-full">Submit</Button>
     </form>
   );
 };
