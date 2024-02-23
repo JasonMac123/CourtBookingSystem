@@ -40,8 +40,20 @@ export const CourtCalendar = ({ data }: CourtCalendarProps) => {
 
   const handleSelectSlot = useCallback(
     ({ start, end }: CourtEvent) => {
-      let newStart = moment(start).toDate();
+      const todayDate = moment().toDate();
+
+      const newStart = moment(start).toDate();
       const newEnd = moment(end).toDate();
+
+      if (
+        newStart.getDay() === todayDate.getDay() &&
+        newStart.getMonth() === todayDate.getMonth() &&
+        newStart.getHours() <= todayDate.getHours()
+      ) {
+        toast("Cannot book court time in the past");
+        return;
+      }
+
       setReservation({
         start: newStart,
         end: newEnd,
