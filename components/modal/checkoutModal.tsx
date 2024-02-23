@@ -63,9 +63,13 @@ export const CheckoutModal = ({ data }: CheckoutModalProps) => {
     return;
   };
 
+  if (!reservationData) {
+    return;
+  }
+
   let bodyContent = (
     <div>
-      <div className="flex gap-4">
+      <div className="flex gap-4 justify-between">
         <div className="relative rounded-xl overflow-auto mx-auto w-60 h-40">
           <Image
             src={data.imageId}
@@ -73,6 +77,27 @@ export const CheckoutModal = ({ data }: CheckoutModalProps) => {
             fill
             className="object-fit"
           />
+        </div>
+        <div>{data.title}</div>
+        <div>
+          {reservationData.start.toLocaleString("en-US", {
+            hour: "numeric",
+            minute: "numeric",
+            hour12: true,
+          })}
+          -
+          {reservationData.end.toLocaleString("en-US", {
+            hour: "numeric",
+            minute: "numeric",
+            hour12: true,
+          })}
+        </div>
+        <div>
+          {reservationData.end.getHours() - reservationData.start.getHours() > 1
+            ? data.price *
+              (reservationData.end.getHours() -
+                reservationData.start.getHours())
+            : data.price + 10}
         </div>
       </div>
     </div>
