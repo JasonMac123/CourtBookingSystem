@@ -14,6 +14,7 @@ import { CourtWithReservationsAndSports } from "@/types";
 
 import Modal from "./modal";
 import CheckoutForm from "../layout/checkoutForm";
+import { FaCheck } from "react-icons/fa";
 
 interface CheckoutModalProps {
   data: CourtWithReservationsAndSports;
@@ -22,6 +23,7 @@ interface CheckoutModalProps {
 export enum STEPS {
   INFO = 0,
   CHECKOUT = 1,
+  CONFIRM = 2,
 }
 
 export const CheckoutModal = ({ data }: CheckoutModalProps) => {
@@ -84,9 +86,28 @@ export const CheckoutModal = ({ data }: CheckoutModalProps) => {
             stripe={getStripe()}
             options={{ clientSecret: clientSecret }}
           >
-            <CheckoutForm clientSecret={clientSecret} courtId={data.id} />
+            <CheckoutForm
+              clientSecret={clientSecret}
+              courtId={data.id}
+              setStep={setStep}
+            />
           </Elements>
         )}
+      </div>
+    );
+  }
+
+  if (step === STEPS.CONFIRM) {
+    bodyContent = (
+      <div className="w-60 h-40 flex flex-col items-center justify-center gap-4">
+        <FaCheck
+          size={40}
+          color="white"
+          className="w-20 h-20 rounded-full bg-green-600"
+        />
+        <p className="text-lg">
+          Booking confirmed. Thanks for booking with us!
+        </p>
       </div>
     );
   }

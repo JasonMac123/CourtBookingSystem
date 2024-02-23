@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from "react";
 import {
   PaymentElement,
   useElements,
@@ -7,12 +8,19 @@ import { toast } from "react-toastify";
 
 import { Button } from "../ui/button";
 
+import { STEPS } from "../modal/checkoutModal";
+
 interface CheckoutFormProps {
   clientSecret: string;
   courtId: string;
+  setStep: Dispatch<SetStateAction<STEPS>>;
 }
 
-const CheckoutForm = ({ clientSecret, courtId }: CheckoutFormProps) => {
+const CheckoutForm = ({
+  clientSecret,
+  courtId,
+  setStep,
+}: CheckoutFormProps) => {
   const elements = useElements();
   const stripe = useStripe();
 
@@ -35,13 +43,14 @@ const CheckoutForm = ({ clientSecret, courtId }: CheckoutFormProps) => {
       confirmParams: {
         return_url: `http://localhost:3000/court/${courtId}`,
       },
+      redirect: "if_required",
     });
 
     if (result.error) {
       toast("Something went wrong with the payment process");
+    } else {
+      setStep(STEPS.CONFIRM);
     }
-
-    toast("Booking confirmed");
   };
 
   return (
@@ -57,7 +66,7 @@ const CheckoutForm = ({ clientSecret, courtId }: CheckoutFormProps) => {
           },
         }}
       />
-      <Button className="mt-4 w-full">Submit</Button>
+      <Button className="w-full mt-2">Submit</Button>
     </form>
   );
 };
