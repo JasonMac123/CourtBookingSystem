@@ -41,26 +41,22 @@ export const CheckoutModal = ({ data }: CheckoutModalProps) => {
   }, [step]);
 
   const onSubmit = async () => {
-    if (step === STEPS.INFO) {
-      const hours =
-        reservationData!.end.getHours() - reservationData!.start.getHours();
-      const totalPrice = hours > 1 ? data.price * hours : data.price + 10;
+    const hours =
+      reservationData!.end.getHours() - reservationData!.start.getHours();
+    const totalPrice = hours > 1 ? data.price * hours : data.price + 10;
 
-      const responseData = await axios.post("/api/create-payment-intent", {
-        amount: totalPrice,
-      });
+    const responseData = await axios.post("/api/create-payment-intent", {
+      amount: totalPrice,
+    });
 
-      const paymentIntent: Stripe.PaymentIntent = responseData.data;
-      if (!paymentIntent.client_secret) {
-        toast("Error, could not proceed with checkout. Try again.");
-        return;
-      }
-      setStep(STEPS.CHECKOUT);
-      setDisabled(true);
-      setClientSecret(paymentIntent.client_secret);
+    const paymentIntent: Stripe.PaymentIntent = responseData.data;
+    if (!paymentIntent.client_secret) {
+      toast("Error, could not proceed with checkout. Try again.");
       return;
     }
-    return;
+    setStep(STEPS.CHECKOUT);
+    setDisabled(true);
+    setClientSecret(paymentIntent.client_secret);
   };
 
   if (!reservationData) {
