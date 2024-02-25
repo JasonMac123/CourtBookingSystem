@@ -69,8 +69,8 @@ export const CheckoutModal = ({ data }: CheckoutModalProps) => {
 
   let bodyContent = (
     <div>
-      <div className="flex flex-col md:flex-row gap-4 md:justify-between">
-        <div className="relative rounded-xl overflow-auto mx-auto w-60 h-40">
+      <div className="flex flex-col md:flex-row gap-4">
+        <div className="relative rounded-xl overflow-auto w-60 h-40">
           <Image
             src={data.imageId}
             alt="picture of court"
@@ -78,26 +78,40 @@ export const CheckoutModal = ({ data }: CheckoutModalProps) => {
             className="object-fit"
           />
         </div>
-        <div>{data.title}</div>
-        <div>
-          {reservationData.start.toLocaleString("en-US", {
-            hour: "numeric",
-            minute: "numeric",
-            hour12: true,
-          })}
-          -
-          {reservationData.end.toLocaleString("en-US", {
-            hour: "numeric",
-            minute: "numeric",
-            hour12: true,
-          })}
-        </div>
-        <div>
-          {reservationData.end.getHours() - reservationData.start.getHours() > 1
-            ? data.price *
-              (reservationData.end.getHours() -
-                reservationData.start.getHours())
-            : data.price + 10}
+        <div className="flex justify-between w-full">
+          <div className="space-y-8">
+            <h3 className="text-2xl">Court</h3>
+            <h3> {data.title}</h3>
+          </div>
+          <div className="space-y-8">
+            <h3 className="text-2xl">Court Reservation Time</h3>
+            <h3>
+              {reservationData.start.toLocaleString("en-US", {
+                hour: "numeric",
+                minute: "numeric",
+                hour12: true,
+              })}{" "}
+              -{" "}
+              {reservationData.end.toLocaleString("en-US", {
+                hour: "numeric",
+                minute: "numeric",
+                hour12: true,
+              })}
+            </h3>
+          </div>
+          <div className="space-y-8">
+            <h3 className="text-2xl">Total Price</h3>
+            <h3>
+              $
+              {reservationData.end.getHours() -
+                reservationData.start.getHours() >
+              1
+                ? data.price *
+                  (reservationData.end.getHours() -
+                    reservationData.start.getHours())
+                : data.price + 10}
+            </h3>
+          </div>
         </div>
       </div>
     </div>
@@ -124,7 +138,7 @@ export const CheckoutModal = ({ data }: CheckoutModalProps) => {
 
   if (step === STEPS.CONFIRM) {
     bodyContent = (
-      <div className="w-60 h-40 flex flex-col items-center justify-center gap-4">
+      <div className="w-full h-full flex flex-col items-center justify-center gap-4">
         <FaCheck
           size={40}
           color="white"
