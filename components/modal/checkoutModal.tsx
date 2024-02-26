@@ -134,7 +134,7 @@ export const CheckoutModal = ({ data }: CheckoutModalProps) => {
 
   if (step === STEPS.CONFIRM) {
     bodyContent = (
-      <div className="w-full h-full flex flex-col items-center justify-center gap-4">
+      <div className="w-full h-full flex flex-col items-center justify-center gap-4 py-8">
         <FaCheck
           size={40}
           color="white"
