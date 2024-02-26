@@ -17,6 +17,7 @@ import {
 } from "@/types";
 
 import { CourtBookingInformation } from "./courtBookingInformation";
+import { checkConflictingDate } from "@/functions/checkConflictingDate";
 
 const localizer = momentLocalizer(moment);
 
@@ -56,6 +57,14 @@ export const CourtCalendar = ({ data, user }: CourtCalendarProps) => {
         return;
       }
 
+      if (
+        !checkConflictingDate(events, {
+          start: newStart,
+          end: newEnd,
+        })
+      ) {
+        toast("Cannot book already booked court reservation");
+      }
       setReservation({
         start: newStart,
         end: newEnd,
