@@ -57,13 +57,9 @@ export const CourtCalendar = ({ data, user }: CourtCalendarProps) => {
         return;
       }
 
-      if (
-        !checkConflictingDate(events, {
-          start: newStart,
-          end: newEnd,
-        })
-      ) {
+      if (!checkConflictingDate(events, newStart, newEnd)) {
         toast("Cannot book already booked court reservation");
+        return;
       }
       setReservation({
         start: newStart,
