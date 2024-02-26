@@ -5,21 +5,27 @@ import {
   useStripe,
 } from "@stripe/react-stripe-js";
 import { toast } from "react-toastify";
+import axios from "axios";
+
+import { CourtReservationEvent, CourtWithReservationsAndSports } from "@/types";
+import { STEPS } from "../modal/checkoutModal";
 
 import { Button } from "../ui/button";
-
-import { STEPS } from "../modal/checkoutModal";
 
 interface CheckoutFormProps {
   clientSecret: string;
   courtId: string;
   setStep: Dispatch<SetStateAction<STEPS>>;
+  courtData: CourtWithReservationsAndSports;
+  reservationData: CourtReservationEvent;
 }
 
 const CheckoutForm = ({
   clientSecret,
   courtId,
   setStep,
+  courtData,
+  reservationData,
 }: CheckoutFormProps) => {
   const elements = useElements();
   const stripe = useStripe();
@@ -49,6 +55,15 @@ const CheckoutForm = ({
     if (result.error) {
       toast("Something went wrong with the payment process");
     } else {
+      console.log(reservationData, courtData);
+
+      axios.post("/api/create-reservation", {
+        startTime: reservationData.start,
+        endTime: reservationData.end,
+        courtId: courtData.id,
+        bookingName: reservationData.title,
+      });
+
       setStep(STEPS.CONFIRM);
     }
   };

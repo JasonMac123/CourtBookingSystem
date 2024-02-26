@@ -125,6 +125,8 @@ export const CheckoutModal = ({ data }: CheckoutModalProps) => {
               clientSecret={clientSecret}
               courtId={data.id}
               setStep={setStep}
+              reservationData={reservationData}
+              courtData={data}
             />
           </Elements>
         )}
