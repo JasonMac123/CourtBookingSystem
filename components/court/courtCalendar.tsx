@@ -7,7 +7,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 
 import moment from "moment";
 import { toast } from "react-toastify";
-import { UserResource } from "@clerk/types";
+import { User, redirectToSignIn } from "@clerk/nextjs/server";
 
 import { useCheckout } from "@/hooks/useCheckout";
 import {
@@ -18,15 +18,17 @@ import {
 
 import { CourtBookingInformation } from "./courtBookingInformation";
 import { checkConflictingDate } from "@/functions/checkConflictingDate";
+import { useUser } from "@clerk/nextjs";
 
 const localizer = momentLocalizer(moment);
 
 interface CourtCalendarProps {
   data: CourtWithReservationsAndSports;
-  user: UserResource;
 }
 
-export const CourtCalendar = ({ data, user }: CourtCalendarProps) => {
+export const CourtCalendar = ({ data }: CourtCalendarProps) => {
+  const { user } = useUser();
+
   const eventData = data.reservations.map((item) => {
     return {
       title: `${item.bookingName}`,
@@ -64,14 +66,14 @@ export const CourtCalendar = ({ data, user }: CourtCalendarProps) => {
       setReservation({
         start: newStart,
         end: newEnd,
-        title: `${user.firstName}, ${user.lastName}`,
+        title: `Current Court Reservation ${user?.firstName} ${user?.lastName}`,
       });
       setEvents([
         ...events,
         {
           start: newStart,
           end: newEnd,
-          title: `${user.firstName}, ${user.lastName}`,
+          title: `Court Reservation by ${user?.firstName} ${user?.lastName}`,
         },
       ]);
     },
