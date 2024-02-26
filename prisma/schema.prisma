@@ -33,11 +33,11 @@ model Sport {
 
 model Reservation {
   id String @id @default(uuid())
-  startTime Float
-  endTime Float
+  startTime DateTime
+  endTime DateTime
   courtId String
+  bookingName String
   court Court @relation(fields: [courtId], references: [id], onDelete: Cascade)
-
 
   @@index([courtId])
 }

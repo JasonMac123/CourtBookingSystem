@@ -6,9 +6,11 @@ import { dark } from "@clerk/themes";
 
 import "./globals.css";
 
-import Navbar from "@/components/layout/navbar";
-import { QueryProvider } from "@/components/queryProvider";
 import { cn } from "@/lib/utils";
+
+import { QueryProvider } from "@/components/layout/queryProvider";
+import Navbar from "@/components/layout/navbar";
+import { ToastNotifcation } from "@/components/layout/toastNotification";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -31,6 +33,7 @@ export default function RootLayout({
           }}
         >
           <QueryProvider>
+            <ToastNotifcation />
             <Navbar />
             {children}
           </QueryProvider>

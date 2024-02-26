@@ -1,7 +1,7 @@
 "use client";
 
-import { DropDown } from "./layout/dropDown";
-import { Button } from "./ui/button";
+import { DropDown } from "./dropDown";
+import { Button } from "../ui/button";
 import { useFilters } from "@/hooks/useFilters";
 
 export const courtLocations = [
