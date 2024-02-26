@@ -7,35 +7,30 @@ export const checkConflictingDate = (
   date: CourtReservationEvent
 ): boolean => {
   for (const event of events) {
+    // three scenarios if current date is overlapping
+    // #1 current reservation time ends between the start and end of past reservation date
     if (
-      event.start.getDay() === date.start.getDay() &&
-      event.start.getMonth() === date.start.getMonth()
+      moment(event.start).isBefore(date.end) &&
+      moment(event.end).isAfter(date.end)
     ) {
-      // three scenarios if date is overlapping
-      // #3 starts before and and ends after the event
+      return false;
+    }
 
-      // #1 starts before then ends in the middle,
-      if (
-        moment(event.start).isBefore(date.end) &&
-        moment(event.end).isAfter(date.end)
-      ) {
-        return false;
-      }
+    // #2 current reservation time starts between the start and end of past reservation date
+    if (
+      moment(event.start).isBefore(date.start) &&
+      moment(event.end).isAfter(date.end)
+    ) {
+      return false;
+    }
 
-      // #2 starts in the middle then ends outside of the event
-      if (
-        moment(event.start).isBefore(date.start) &&
-        moment(event.end).isAfter(date.end)
-      ) {
-        return false;
-      }
-
-      if (
-        moment(event.start).isAfter(date.start) &&
-        moment(event.end).isBefore(date.end)
-      ) {
-        return false;
-      }
+    // #3 current reservation time stars before the start of the past
+    //    reservation date and ends after the past reservation date
+    if (
+      moment(event.start).isAfter(date.start) &&
+      moment(event.end).isBefore(date.end)
+    ) {
+      return false;
     }
   }
 
