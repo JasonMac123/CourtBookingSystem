@@ -15,7 +15,10 @@ export const checkConflictingDate = (
     }
 
     // #2 current reservation time starts between the start and end of past reservation date
-    if (moment(event.start).isBefore(start) && moment(event.end).isAfter(end)) {
+    if (
+      moment(event.start).isBefore(start) &&
+      moment(event.end).isAfter(start)
+    ) {
       return false;
     }
 
