@@ -7,7 +7,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 
 import moment from "moment";
 import { toast } from "react-toastify";
-import { User, redirectToSignIn } from "@clerk/nextjs/server";
+import { useUser } from "@clerk/nextjs";
 
 import { useCheckout } from "@/hooks/useCheckout";
 import {
@@ -18,7 +18,7 @@ import {
 
 import { CourtBookingInformation } from "./courtBookingInformation";
 import { checkConflictingDate } from "@/functions/checkConflictingDate";
-import { useUser } from "@clerk/nextjs";
+import { CourtCalendarSkeleton } from "./courtCalendarSkeleton";
 
 const localizer = momentLocalizer(moment);
 
@@ -28,6 +28,10 @@ interface CourtCalendarProps {
 
 export const CourtCalendar = ({ data }: CourtCalendarProps) => {
   const { user } = useUser();
+
+  if (!user) {
+    return <CourtCalendarSkeleton />;
+  }
 
   const eventData = data.reservations.map((item) => {
     return {
@@ -63,6 +67,9 @@ export const CourtCalendar = ({ data }: CourtCalendarProps) => {
         toast("Cannot book already booked court reservation");
         return;
       }
+      console.log(events);
+      console.log(checkConflictingDate(events, newStart, newEnd));
+
       setReservation({
         start: newStart,
         end: newEnd,
